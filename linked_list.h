@@ -42,7 +42,10 @@ void ll_list_remove_ptr(ll_List* list, void* data);
 void ll_list_remove_nth(ll_List* list, unsigned int n);
 
 static inline _ll_Block* _ll_block_new() {
-  return (_ll_Block*)(ll_malloc(sizeof(_ll_Block)));
+  _ll_Block* ret = (_ll_Block*)(ll_malloc(sizeof(_ll_Block)));
+  ret->next = NULL;
+  ret->data = NULL;
+  return ret;
 }
 
 
