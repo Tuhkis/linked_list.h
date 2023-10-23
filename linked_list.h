@@ -25,9 +25,23 @@ extern "C" {
 #define ll_free(s) free(s)
 #endif /* ll_free */
 
+/**
+ * Create an empty ll_List.
+ */
 #define ll_list_new {0, NULL}
+/**
+ * Gets the data of the ith block in a provided list. Must be cast into a pointer of the desired type.
+ * E.g.: `*(int*)ll_list_get(myList, myIndex)`
+ */
 #define ll_list_get(l, i) (_ll_list_get_nth_block(&l, (i))->data)
+/**
+ * A foreach loop for use with ll_List. Provide the name of the iterator.
+ */
 #define ll_list_foreach(list, iterator) for (_ll_Block* iterator = list.first; iterator != NULL; i = (_ll_Block*)(iterator->next))
+/**
+ * A macro designed to make working with `ll_list_foreach` a little easier. The first argument is the type which the list member is supposed to be when returned.
+ * The second argument iterator is the iterator in the `ll_list_foreach`.
+ */
 #define ll_iterator_get_data(type, iterator) *(type *)(iterator->data)
 
 typedef struct {
@@ -36,11 +50,28 @@ typedef struct {
 
 typedef struct { unsigned int len; _ll_Block* first; } ll_List;
 
+/**
+ * Allocates a new block and sets its data to the provided data and appends it to the end of the list.
+ */
 void ll_list_add(ll_List* list, void* data);
+/*
+ * ONLY FOR INTERNAL USE!
+ * Iterates through a list until reaches the nth block.
+ */
 _ll_Block* _ll_list_get_nth_block(ll_List* l, unsigned int n);
+/**
+ * Goes through the provided list until finds a pointer that matches the provided one and then removes it.
+ */
 void ll_list_remove_ptr(ll_List* list, void* data);
+/**
+ * Removes the nth member from a list.
+ */
 void ll_list_remove_nth(ll_List* list, unsigned int n);
 
+/**
+ * ONLY FOR INTERNAL USE!
+ * Allocates a new _ll_Block, sets its members to null and returns the pointer.
+ */
 static inline _ll_Block* _ll_block_new() {
   _ll_Block* ret = (_ll_Block*)(ll_malloc(sizeof(_ll_Block)));
   ret->next = NULL;

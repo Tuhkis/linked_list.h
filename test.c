@@ -3,6 +3,9 @@
 #include "time.h"
 #include "stdio.h"
 
+/**
+ * Exists to create ints on the heap and return the pointer to them. Only exists in test.c. Not a part of the library itself.
+ */
 int* ll_int_new(int val) {
   int* a = (int*)(ll_malloc(sizeof(int)));
   *a = val;
@@ -30,6 +33,8 @@ int main() {
   ll_list_foreach (b, i) {
     printf("%d\n", ll_iterator_get_data(int, i));
   }
+  
+  ll_list_free(&b);
   return 0;
 }
 
