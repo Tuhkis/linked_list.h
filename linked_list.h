@@ -37,7 +37,7 @@ extern "C" {
 /**
  * A foreach loop for use with ll_List. Provide the name of the iterator.
  */
-#define ll_list_foreach(list, iterator) for (_ll_Block* iterator = list.first; iterator != NULL; i = (_ll_Block*)(iterator->next))
+#define ll_list_foreach(list, iterator) for (_ll_Block* iterator = list.first; iterator != NULL; iterator = (_ll_Block*)(iterator->next))
 /**
  * A macro designed to make working with `ll_list_foreach` a little easier. The first argument is the type which the list member is supposed to be when returned.
  * The second argument iterator is the iterator in the `ll_list_foreach`.
@@ -79,7 +79,9 @@ static inline _ll_Block* _ll_block_new() {
   return ret;
 }
 
-
+/**
+ * Frees a list and all of its data, even if they were manually allocated by the user.
+ */
 static inline void ll_list_free(ll_List* l) {
   if (l->len == 0) return;
   for (;l->len > 0; --l->len) {
