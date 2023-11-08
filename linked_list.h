@@ -72,7 +72,7 @@ void ll_list_remove_nth(ll_List* list, unsigned int n);
  * ONLY FOR INTERNAL USE!
  * Allocates a new _ll_Block, sets its members to null and returns the pointer.
  */
-static inline _ll_Block* _ll_block_new() {
+static inline _ll_Block* _ll_block_new(void) {
   _ll_Block* ret = (_ll_Block*)(ll_malloc(sizeof(_ll_Block)));
   ret->next = NULL;
   ret->data = NULL;
